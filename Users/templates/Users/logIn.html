@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Library System</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0A76AA, #1E2A47);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 40px 45px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            width: 360px;
+            text-align: center;
+            backdrop-filter: blur(12px);
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #F4A545;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+            background-color: #fff;
+            color: #000;
+            font-size: 15px;
+        }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #888;
+        }
+
+        .toggle-password:hover {
+            color: #333;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background-color: #F4A545;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ffb25b;
+            transform: translateY(-2px);
+        }
+
+        p {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        a {
+            color: #F4A545;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            font-size: 14px;
+            border-radius: 8px;
+            padding: 8px;
+        }
+
+        .error {
+            background: rgba(231, 76, 60, 0.15);
+            color: #ff7b6a;
+        }
+
+        .success {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Library Login</h2>
+
+        {% if message %}
+            <p class="message {% if 'success' in message|lower %}success{% else %}error{% endif %}">
+                {{ message }}
+            </p>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Email" required>
+
+            <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <span class="toggle-password" onclick="togglePassword('password', this)">👁️</span>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    </div>
+
+    <script>
+        function togglePassword(id, el) {
+            const input = document.getElementById(id);
+            if (input.type === "password") {
+                input.type = "text";
+                el.textContent = "🙈";
+            } else {
+                input.type = "password";
+                el.textContent = "👁️";
+            }
+        }
+    </script>
+</body>
+</html>

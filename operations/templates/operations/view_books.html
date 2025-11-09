@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Books</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0A76AA, #1E2A47);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            text-align: center;
+            padding: 25px 0;
+            background: rgba(0, 0, 0, 0.2);
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        h1 {
+            margin: 0;
+        }
+        table {
+            margin-top: 50px;
+            border-collapse: collapse;
+            width: 80%;
+            max-width: 900px;
+            background: #ffffff1a;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+        th {
+            background: #F4A545;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background: #ffffff0a;
+        }
+        a {
+            color: #fff;
+            text-decoration: none;
+            margin-top: 40px;
+            background: #1E2A47;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        a:hover {
+            background: #0A76AA;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>📖 All Books</h1>
+    </header>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Book Name</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Copies</th>
+            <th>Status</th>
+        </tr>
+
+        {% for book in books %}
+        <tr>
+            <td>{{ book.id }}</td>
+            <td>{{ book.book_name }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.category }}</td>
+            <td>{{ book.copy }}</td>
+            <td>{{ book.status }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">No books available in the library.</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{% url 'Home' %}">⬅ Back to Operations</a>
+
+</body>
+</html>

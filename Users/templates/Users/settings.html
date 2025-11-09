@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Settings</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0A76AA, #1E2A47);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2, h3 {
+            color: #fff;
+            text-align: center;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 16px 22px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            width: 400px;
+            backdrop-filter: blur(8px);
+            margin-bottom: 16px;
+        }
+        .info-box p { margin: 6px 0; }
+
+        .flash {
+            background: rgba(0, 200, 120, 0.2);
+            border: 1px solid rgba(0, 200, 120, 0.6);
+            color: #c1ffde;
+            padding: 10px 14px;
+            border-radius: 10px;
+            width: 400px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            width: 400px;
+            backdrop-filter: blur(8px);
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: 600;
+            color: #F4A545;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        input:focus {
+            box-shadow: 0 0 5px #F4A545;
+        }
+
+        button {
+            margin-top: 20px;
+            background-color: #F4A545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ffb25b;
+        }
+
+        ul {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            width: 400px;
+            margin-top: 25px;
+            backdrop-filter: blur(8px);
+            list-style-type: none;
+        }
+
+        li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            width: 400px;
+            margin: 30px 0;
+        }
+
+        a.back-btn {
+            margin-top: 20px;
+            display: inline-block;
+            background: #1E2A47;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        a.back-btn:hover {
+            background: #0A76AA;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>⚙️ Account Settings</h2>
+
+    {% if message %}
+      <div class="flash">{{ message }}</div>
+    {% endif %}
+
+    {% if user %}
+    <div class="info-box">
+        <p><strong>👤 Name:</strong> {{ user.userName }}</p>
+        <p><strong>📧 Email:</strong> {{ user.email }}</p>
+    </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label>User Name:</label>
+        <input type="text" name="username" placeholder="Enter new user name">
+
+        <label>Email:</label>
+        <input type="email" name="email" placeholder="Enter new email" >
+
+        <label>New Password:</label>
+        <input type="password" name="password" placeholder="Enter new password">
+
+        <button type="submit">💾 Save Changes</button>
+    </form>
+
+    <hr>
+
+  <h3>📚 Borrowed Books</h3>
+<ul>
+  {% for borrow in books %}
+    <li>
+      {{ borrow.book.book_name }} —
+      Borrowed on {{ borrow.borrow_date }}
+      {% if borrow.return_date %}
+        <br>✅ Returned on {{ borrow.return_date }}
+      {% else %}
+        <br>❌ Not returned yet
+      {% endif %}
+    </li>
+  {% empty %}
+    <li>No borrowed books yet.</li>
+  {% endfor %}
+</ul>
+
+
+    <a href="{% url 'Home' %}" class="back-btn">⬅ Back to Home</a>
+
+</body>
+</html>

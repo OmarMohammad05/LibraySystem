@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Borrow a Book</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0A76AA, #1E2A47);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            text-align: center;
+            padding: 25px 0;
+            background: rgba(0, 0, 0, 0.2);
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        form {
+            background: #ffffff1a;
+            margin-top: 60px;
+            padding: 40px 60px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        input, button {
+            padding: 12px;
+            margin: 10px 0;
+            width: 250px;
+            border: none;
+            border-radius: 8px;
+            text-align: center;
+        }
+        input {
+            background: #fff;
+            color: #000;
+        }
+        button {
+            background: #F4A545;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #ffb25b;
+        }
+        a {
+            color: #fff;
+            margin-top: 30px;
+            text-decoration: none;
+            background: #1E2A47;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+        .message {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        .success {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+        .error {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>📚 Borrow a Book</h1>
+    </header>
+
+    <form action="#" method="POST">
+        {% csrf_token %}
+        <input type="text" name="book_name" placeholder="Enter Book Name" required><br>
+        <input type="text" name="name" placeholder="Your Name" required><br>
+        <button type="submit">Borrow</button>
+
+        {% if message %}
+        <div class="message {% if 'successfully' in message %}success{% else %}error{% endif %}">
+            {{ message }}
+        </div>
+        {% endif %}
+    </form>
+
+    <a href="{% url 'Home' %}">⬅ Back to Operations</a>
+
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Operations</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0A76AA, #1E2A47);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        header {
+            width: 100%;
+            text-align: center;
+            padding: 25px 0;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* Menu Icon */
+        .menu-icon {
+            position: absolute;
+            left: 20px;
+            top: 25px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #fff;
+            transition: transform 0.3s ease;
+            user-select: none;
+        }
+
+        .menu-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -260px;
+            width: 250px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+            padding: 20px;
+            transition: left 0.3s ease;
+            z-index: 10;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #fff3;
+            padding-bottom: 10px;
+        }
+
+        .close-btn {
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .sidebar a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            margin: 12px 0;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background: #ffffff33;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 60px;
+            width: 90%;
+            max-width: 900px;
+        }
+
+        .card {
+            background: #ffffff1a;
+            border-radius: 20px;
+            width: 260px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: #ffffff33;
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #fff;
+            background: #F4A545;
+            padding: 10px 20px;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .card a:hover {
+            background: #ffb25b;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>📚 Menu</h2>
+            <span class="close-btn" onclick="toggleSidebar()">✖</span>
+        </div>
+        <a href="{% url 'View' %}">View Books</a>
+        <a href="{% url 'Borrow' %}">Borrow Book</a>
+        <a href="{% url 'Return' %}">Return Book</a>
+        <a href="{% url 'settings'%}">Account Settings</a>
+        <a href="{% url 'logOut' %}">Logout</a>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <span class="menu-icon" id="menuIcon" onclick="toggleSidebar()">☰</span>
+        <h1>📚 Library Operations Panel</h1>
+    </header>
+
+    <!-- Main Cards -->
+    <div class="container">
+
+        <div class="card">
+            <h2>📖 View Books</h2>
+            <p>Browse all available books in the library with full details.</p>
+            <a href="{% url 'View' %}">View</a>
+        </div>
+
+        <div class="card">
+            <h2>📚 Borrow a Book</h2>
+            <p>Select and borrow a book from the library collection.</p>
+            <a href="{% url 'Borrow' %}">Borrow</a>
+        </div>
+
+        <div class="card">
+            <h2>🔁 Return a Book</h2>
+            <p>Return borrowed books and update your record.</p>
+            <a href="{% url 'Return' %}">Return</a>
+        </div>
+
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
